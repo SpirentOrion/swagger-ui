@@ -7,3 +7,4 @@ package-lock.json
 *.iml
 selenium-debug.log
 test/e2e/db.json
+dist
