@@ -14,6 +14,7 @@
   ],
   "license": "Apache-2.0",
   "scripts": {
+    "release": "npm run build && node ./src/scripts/npm/packRelease.js",
     "build": "npm run build-core && npm run build-bundle && npm run build-standalone",
     "build-bundle": "webpack --config webpack-dist-bundle.config.js --colors",
     "build-core": "webpack --config webpack-dist.config.js --colors",
@@ -84,6 +85,7 @@
     "yaml-js": "0.2.0"
   },
   "devDependencies": {
+    "archiver": "^2.0.0",
     "autoprefixer": "7.1.1",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
