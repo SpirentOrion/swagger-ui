@@ -1,9 +1,3 @@
-/*
- * Copyright (c) 2014-2016, Spirent Communications.
- *
- * All rights reserved. Proprietary and confidential information of Spirent Communications.
- */
-
 const path = require('path')
 
 const ROOT_DIR = path.resolve(__dirname, '../../..')
@@ -28,6 +22,8 @@ module.exports = {
   BUNDLE_COMPILED_NAME,
   STANDALONE_PRESET_COMPILED_NAME,
   STYLES_COMPILED_NAME,
+
+  VERSION_COMPILED: `${DIST_DIR}/assets/version/info.json`,
 
   TGZ: {
     FILES: [
