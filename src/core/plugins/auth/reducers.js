@@ -5,6 +5,7 @@ import {
   SHOW_AUTH_POPUP,
   AUTHORIZE,
   AUTHORIZE_OAUTH2,
+  AUTHORIZE_OAUTH2_QUERY,
   LOGOUT,
   CONFIGURE_AUTH
 } from "./actions"
@@ -48,6 +49,10 @@ export default {
     parsedAuth = fromJS(auth)
 
     return state.setIn( [ "authorized", parsedAuth.get("name") ], parsedAuth )
+  },
+
+  [AUTHORIZE_OAUTH2_QUERY]: (state, { payload } ) =>{
+    return state.set("query_token", payload)
   },
 
   [LOGOUT]: (state, { payload } ) =>{
