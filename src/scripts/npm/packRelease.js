@@ -1,6 +1,7 @@
 const archiver = require('archiver')
 const fs = require('fs')
 const config = require('./config')
+const generateFiles = require('./generateFiles')
 
 function buildArtifacts () {
   const archive = archiver('tar', {
@@ -34,4 +35,5 @@ function buildArtifacts () {
   archive.finalize()
 }
 
-buildArtifacts()
+generateFiles()
+  .then(buildArtifacts)
