@@ -591,6 +591,12 @@ export const parseSearch = () => {
   return map
 }
 
+export const excludeTokenFromQuery = () => {
+  const currentURL = new URL(window.location.href)
+  currentURL.searchParams.delete("access_token")
+  window.history.replaceState(window.history.state, "", currentURL)
+}
+
 export const btoa = (str) => {
   let buffer
 

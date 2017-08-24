@@ -1,5 +1,5 @@
 import { createSelector } from "reselect"
-import { List, Map } from "immutable"
+import { List, Map, fromJS } from "immutable"
 
 const state = state => state
 
@@ -58,11 +58,40 @@ export const getDefinitionsByNames = ( state, securities ) =>( { specSelectors }
   return result
 }
 
-export const authorized = createSelector(
-    state,
-    auth => auth.get("authorized") || Map()
+export const getQueryToken = createSelector(
+  state,
+  auth => auth.get( "query_token" )
 )
 
+export const authorized = createSelector(
+  state,
+  getQueryToken,
+  (auth, query_token) => ({specSelectors}) => {
+    let authorized = auth.get("authorized") || Map()
+    if(query_token) {
+      const defenitions = specSelectors.securityDefinitions()
+      const oauth2Definitions = defenitions.filter(def => def.get("type") === "oauth2")
+      const auth = {}
+      oauth2Definitions.forEach((schema, name) => {
+        auth.name = name
+        auth.schema = schema
+        return false
+      })
+
+      if (auth.name && auth.schema) {
+        const schema = auth.schema
+        auth.token = {
+          access_token: query_token
+        }
+        const scopes = schema.get("allowedScopes") || schema.get("scopes")
+        auth.scopes = scopes.valueSeq().toJS()
+
+        authorized = authorized.set(auth.name, fromJS(auth))
+      }
+    }
+    return authorized
+  }
+)
 
 export const isAuthorized = ( state, securities ) =>( { authSelectors } ) => {
   let authorized = authSelectors.authorized()

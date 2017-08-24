@@ -4,7 +4,7 @@ import System from "core/system"
 import win from "core/window"
 import ApisPreset from "core/presets/apis"
 import * as AllPlugins from "core/plugins/all"
-import { parseSearch } from "core/utils"
+import { parseSearch, excludeTokenFromQuery } from "core/utils"
 
 // eslint-disable-next-line no-undef
 const { GIT_DIRTY, GIT_COMMIT, PACKAGE_VERSION, HOSTNAME, BUILD_TIME } = buildInfo
@@ -58,6 +58,9 @@ module.exports = function SwaggerUI(opts) {
   }
 
   let queryConfig = parseSearch()
+  if (queryConfig.access_token) {
+    excludeTokenFromQuery()
+  }
 
   const constructorConfig = deepExtend({}, defaults, opts, queryConfig)
 
@@ -92,6 +95,10 @@ module.exports = function SwaggerUI(opts) {
   var system = store.getSystem()
 
   system.initOAuth = system.authActions.configureAuth
+
+  if(queryConfig && queryConfig.access_token) {
+    system.authActions.authorizeOauth2FromQuery(queryConfig.access_token)
+  }
 
   const downloadSpec = (fetchedConfig) => {
     if(typeof constructorConfig !== "object") {

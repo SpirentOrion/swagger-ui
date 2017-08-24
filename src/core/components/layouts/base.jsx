@@ -32,7 +32,6 @@ export default class BaseLayout extends React.Component {
     let Info = getComponent("info")
     let Operations = getComponent("operations", true)
     let Models = getComponent("Models", true)
-    let AuthorizeBtn = getComponent("authorizeBtn", true)
     let Row = getComponent("Row")
     let Col = getComponent("Col")
     let Errors = getComponent("errors", true)
@@ -73,10 +72,6 @@ export default class BaseLayout extends React.Component {
                       currentScheme={specSelectors.operationScheme()}
                       schemes={ schemes }
                       specActions={ specActions } />
-                  ) : null }
-
-                  { securityDefinitions ? (
-                    <AuthorizeBtn />
                   ) : null }
                 </Col>
               </div>

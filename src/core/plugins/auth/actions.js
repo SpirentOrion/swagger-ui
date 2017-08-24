@@ -6,6 +6,7 @@ export const AUTHORIZE = "authorize"
 export const LOGOUT = "logout"
 export const PRE_AUTHORIZE_OAUTH2 = "pre_authorize_oauth2"
 export const AUTHORIZE_OAUTH2 = "authorize_oauth2"
+export const AUTHORIZE_OAUTH2_QUERY = "authorize_oauth2_query"
 export const VALIDATE = "validate"
 export const CONFIGURE_AUTH = "configure_auth"
 
@@ -65,6 +66,13 @@ export const preAuthorizeImplicit = (payload) => ( { authActions, errActions } )
 export function authorizeOauth2(payload) {
   return {
     type: AUTHORIZE_OAUTH2,
+    payload: payload
+  }
+}
+
+export function authorizeOauth2FromQuery(payload) {
+  return {
+    type: AUTHORIZE_OAUTH2_QUERY,
     payload: payload
   }
 }
