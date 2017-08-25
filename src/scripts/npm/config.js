@@ -10,6 +10,8 @@ const INDEX_NAME = 'index.html'
 const BUNDLE_COMPILED_NAME = 'swagger-ui-bundle.js'
 const STANDALONE_PRESET_COMPILED_NAME = 'swagger-ui-standalone-preset.js'
 const STYLES_COMPILED_NAME = 'swagger-ui.css'
+const VERSION_COMPILED_NAME = 'info.json'
+const VERSION_COMPILED = `${DIST_DIR}/assets/version/${VERSION_COMPILED_NAME}`;
 
 module.exports = {
   ROOT_DIR,
@@ -23,7 +25,7 @@ module.exports = {
   STANDALONE_PRESET_COMPILED_NAME,
   STYLES_COMPILED_NAME,
 
-  VERSION_COMPILED: `${DIST_DIR}/assets/version/info.json`,
+  VERSION_COMPILED,
 
   TGZ: {
     FILES: [
@@ -39,6 +41,10 @@ module.exports = {
       },
       {
         glob: `${STYLES_COMPILED_NAME}?(.map)`
+      },
+      {
+        src: VERSION_COMPILED,
+        dst: VERSION_COMPILED_NAME
       }
     ],
     DIRECTORIES: [
